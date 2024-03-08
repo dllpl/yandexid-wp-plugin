@@ -12,7 +12,7 @@ trait Options
         if (count($rows)) {
             $row = $rows[0];
             return [
-                'сlient_id' => $row->сlient_id,
+                'client_id' => $row->client_id,
                 'client_secret' => $row->client_secret,
                 'button' => $row->button,
                 'container_id' => $row->container_id,

@@ -26,8 +26,8 @@ class MainRequestController extends WP_REST_Controller
                 return current_user_can('manage_options');
             },
             'args' => [
-                'сlient_id' => [
-                    'description' => __('Проверьте поле сlient_id'),
+                'client_id' => [
+                    'description' => __('Проверьте поле client_id'),
                     'type' => 'string',
                     'minLength' => 32,
                     'maxLength' => 32,
@@ -48,8 +48,8 @@ class MainRequestController extends WP_REST_Controller
                 'container_id' => [
                     'description' => __('Проверьте поле container_id'),
                     'type' => 'string',
-                    'minLength' => 10,
-                    'maxLength' => 10,
+                    'minLength' => 3,
+                    'maxLength' => 50,
                     'required' => false,
                 ],
                 'widget' => [

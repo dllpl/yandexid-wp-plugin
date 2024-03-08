@@ -14,11 +14,11 @@ class Activator
         $sql = ["
             CREATE TABLE $table_options (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `сlient_id` VARCHAR(32) NOT NULL,
+            `client_id` VARCHAR(32) NOT NULL,
             `client_secret` VARCHAR(32) NOT NULL,
-            `button` BOOLEAN NOT NULL DEFAULT false,
-            `container_id` VARCHAR(10) DEFAULT NULL,
-            `widget` BOOLEAN NOT NULL DEFAULT true,
+            `button` BOOLEAN DEFAULT NULL,
+            `container_id` VARCHAR(50) DEFAULT NULL,
+            `widget` BOOLEAN DEFAULT NULL,
             `created_at` DATETIME DEFAULT NOW(),
             PRIMARY KEY (`id`)
         ) $charset_collate"];

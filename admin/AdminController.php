@@ -16,40 +16,53 @@ class AdminController
 
     public function addMenu()
     {
-        add_options_page('Интеграция с Яндекс ID', 'Интеграция с Яндекс ID', 'manage_options', 'yandexid_settings', [$this, 'settingsPage']);
+        add_options_page('Интеграция с Яндекс ID', 'Яндекс ID Webseed', 'manage_options', 'yandexid_settings', [$this, 'settingsPage']);
     }
 
     public function settingsPage()
     {
         $options = $this->options;
+
         ?>
         <style>
-            label {font-size: 16px}
+            label {
+                font-size: 16px
+            }
         </style>
         <div class="wrap">
             <h2><?php echo get_admin_page_title() ?></h2>
             <form>
                 <h3>Данные приложения Яндекс ID и настройки плагина</h3>
-                <label for="сlient_id">ClientID<span style="color: red">*</span></label> <br>
-                <input type="text" id="сlient_id" name="сlient_id" value="<?php echo $options['сlient_id'] ?? null ?>"
+                <label for="client_id">ClientID<span style="color: red">*</span></label> <br>
+                <input type="text" id="client_id" name="client_id" value="<?php echo $options['client_id'] ?? null ?>"
                        required maxlength="32" minlength="32"><br>
                 <label for="client_secret">Client secret<span style="color: red">*</span></label> <br>
                 <input type="password" id="client_secret" name="client_secret"
                        value="<?php echo $options['client_secret'] ?? null ?>"
                        required maxlength="32" minlength="32"><br>
-                <hr>
-                <div style="display: flex;">
+                <h3>Виджет и кнопка <small>(возможны оба варианта, либо только один, либо вообще ни один)</small></h3>
+                <div style="display: flex; margin-bottom: 15px">
                     <div style="display: flex; align-items: end">
                         <label for="widget">Показать виджет</label>
-                        <input type="checkbox" id="widget" name="widget" value="<?php echo $options['widget'] ?? null ?>" style="margin-left: 5px">
+                        <input type="checkbox" id="widget"
+                               name="widget" <?php if (isset($options['widget']) && $options['widget']) echo 'checked' ?>
+                               style="margin-left: 5px">
                     </div>
                     <div style="display: flex; align-items: end; margin-left: 20px">
                         <label for="button">Показать кнопку</label>
-                        <input type="checkbox" id="button" name="button" value="<?php echo $options['button'] ?? null ?>" style="margin-left: 5px">
+                        <input type="checkbox" id="button"
+                               name="button" <?php if (isset($options['button']) && $options['button']) echo 'checked' ?>
+                               style="margin-left: 5px">
                     </div>
                 </div>
-
-
+                <div style="display: flex; flex-direction: column">
+                    <label for="container_id">ID - контейнера кнопки</label>
+                    <input type="text" id="container_id" name="container_id"
+                           value="<?php echo $options['container_id'] ?? null ?>"
+                        <?php if (!isset($options['button']) || !$options['button']) echo 'disabled'?>
+                        placeholder='Поле активируется, если выбрать "Показать кнопку"'
+                    >
+                </div>
 
                 <div style="color: red" id="error"></div>
                 <div style="color: forestgreen" id="success"></div>
@@ -58,6 +71,14 @@ class AdminController
                 ?>
             </form>
             <script>
+                document.getElementById('button').onchange = (event) => {
+                    if (event.target.checked) {
+                        document.getElementById('container_id').removeAttribute('disabled')
+                    } else {
+                        document.getElementById('container_id').setAttribute("disabled", "disabled");
+                    }
+                }
+
                 const form = document.querySelector('form');
                 const url = '/wp-json/yandexid_webseed/updateSettings';
 
@@ -65,8 +86,14 @@ class AdminController
                     event.preventDefault();
                     const formData = new FormData(form);
                     const data = {};
-                    for (const [key, value] of formData.entries()) {
+
+                    for (let [key, value] of formData.entries()) {
                         if (value === '') continue
+
+                        if(key === 'button' || key === 'widget') {
+                            value = value === 'on';
+                        }
+
                         data[key] = value;
                     }
                     fetch(url, {
@@ -109,14 +136,19 @@ class AdminController
 
     public static function updateSettings(WP_REST_Request $request)
     {
+        if(!empty($request['button']) && empty($request['container_id'])) {
+            return wp_send_json_error('Заполните поле "ID - контейнера кнопки"');
+        }
+
         global $wpdb;
         $table_name = $wpdb->prefix . 'yandexid_webseed_options';
 
         $data = [
-            'сlient_id' => trim($request['сlient_id']),
+            'client_id' => trim($request['client_id']),
             'client_secret' => trim($request['client_secret']),
-            'button' => $request['button'],
-            'widget' => $request['widget'],
+            'button' => $request['button'] ?? null,
+            'container_id' => $request['container_id'] ?? null,
+            'widget' => $request['widget'] ?? null,
         ];
 
         $result = $wpdb->insert($table_name, $data);
