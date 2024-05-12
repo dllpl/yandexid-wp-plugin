@@ -70,6 +70,8 @@ class MainRequestController extends WP_REST_Controller
 
         if(!$access_token) {
             return wp_send_json_error('Не указан client secret');
+        } else if (isset($access_token['error'])) {
+            return wp_send_json_error($access_token);
         }
 
         require_once plugin_dir_path(__FILE__) . 'UserController.php';

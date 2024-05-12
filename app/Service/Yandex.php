@@ -51,7 +51,7 @@ class Yandex
             $response = curl_exec($ch);
             curl_close($ch);
 
-            if (curl_errno($ch)) {
+            if (curl_error($ch)) {
                 return 'Ошибка cURL: ' . curl_error($ch);
             } else {
                 return json_decode($response, true);
