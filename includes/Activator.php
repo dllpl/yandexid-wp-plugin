@@ -17,7 +17,7 @@ class Activator
             `client_id` VARCHAR(32) NOT NULL,
             `client_secret` VARCHAR(32) NOT NULL,
             `button` BOOLEAN DEFAULT NULL,
-            `container_id` VARCHAR(50) DEFAULT NULL,
+            `container_id` VARCHAR(100) DEFAULT NULL,
             `widget` BOOLEAN DEFAULT NULL,
             `created_at` DATETIME DEFAULT NOW(),
             PRIMARY KEY (`id`)

@@ -49,7 +49,7 @@ class MainRequestController extends WP_REST_Controller
                     'description' => __('Проверьте поле container_id'),
                     'type' => 'string',
                     'minLength' => 3,
-                    'maxLength' => 50,
+                    'maxLength' => 100,
                     'required' => false,
                 ],
                 'widget' => [
