@@ -56,7 +56,7 @@ class AdminController
                     </div>
                 </div>
                 <div style="display: flex; flex-direction: column">
-                    <label for="container_id">ID - контейнера кнопки (можно перечислить строго через знак запятой. Пример: id1,id2,...)</label>
+                    <label for="container_id">ID - контейнера кнопки</label>
                     <input type="text" id="container_id" name="container_id"
                            value="<?php echo $options['container_id'] ?? null ?>"
                         <?php if (!isset($options['button']) || !$options['button']) echo 'disabled'?>
