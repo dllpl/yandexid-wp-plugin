@@ -401,3 +401,82 @@ if (typeof LVYID_Admin !== 'undefined' && LVYID_Admin.show_welcome) {
         setTimeout(openWelcomeModal, 200);
     }
 }
+
+// --------------------------------------------------------------------------
+// 7. Модальное окно поддержки проекта (Показ раз в сутки)
+// --------------------------------------------------------------------------
+const donateModal = document.getElementById('lvyid-donate-modal');
+const openDonateBtn = document.getElementById('lvyid-open-donate-btn');
+const closeDonateModalBtn = document.getElementById('lvyid-donate-modal-close-btn');
+const remindLaterDonateBtn = document.getElementById('lvyid-donate-remind-later-btn');
+
+function openDonateModal(recordView = true) {
+    if (donateModal) {
+        donateModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (recordView) {
+        try {
+            localStorage.setItem('lvyid_donate_modal_last_shown', String(Date.now()));
+        } catch (e) {}
+
+        const formData = new FormData();
+        formData.append('action', 'lvyid_record_donate_modal');
+        formData.append('nonce', ajax_nonce);
+
+        fetch(ajax_url, {
+            method: 'POST',
+            body: formData
+        }).catch(() => {});
+    }
+}
+
+function closeDonateModal() {
+    if (donateModal) {
+        donateModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+if (openDonateBtn) {
+    openDonateBtn.addEventListener('click', () => openDonateModal(false));
+}
+
+if (closeDonateModalBtn) {
+    closeDonateModalBtn.addEventListener('click', () => closeDonateModal());
+}
+
+if (remindLaterDonateBtn) {
+    remindLaterDonateBtn.addEventListener('click', () => closeDonateModal());
+}
+
+if (donateModal) {
+    donateModal.addEventListener('click', (e) => {
+        if (e.target === donateModal) {
+            closeDonateModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && donateModal.style.display === 'flex') {
+            closeDonateModal();
+        }
+    });
+}
+
+// Автоматический показ модалки доната раз в сутки при входе в настройки
+if (typeof LVYID_Admin !== 'undefined' && LVYID_Admin.show_donate_modal) {
+    let shouldShowDonate = true;
+    try {
+        const lastShown = parseInt(localStorage.getItem('lvyid_donate_modal_last_shown') || '0', 10);
+        const oneDayMs = 24 * 60 * 60 * 1000;
+        if (Date.now() - lastShown < oneDayMs) {
+            shouldShowDonate = false;
+        }
+    } catch (e) {}
+
+    if (shouldShowDonate) {
+        setTimeout(() => openDonateModal(true), 500);
+    }
+}

@@ -35,13 +35,23 @@ class LVYID_AdminController
         $js_file = plugin_dir_path(__FILE__) . 'public/js/script.js';
         $user_id = get_current_user_id();
         $show_welcome = empty(get_user_meta($user_id, 'lvyid_v200_welcome_seen', true));
+        $last_donate_shown = (int)get_user_meta($user_id, 'lvyid_last_donate_modal_time', true);
+        $current_time = time();
+        $is_test = isset($_GET['test_donate']) || isset($_GET['show_donate']);
+
+        // Показываем раз в сутки (24 часа = 86400 сек)
+        $show_donate_modal = $is_test || (($current_time - $last_donate_shown) >= 86400);
 
         wp_enqueue_script('yandex-sdk-suggest', 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js', [], null, true);
-        wp_enqueue_script('login_via_yandex_admin', plugins_url('public/js/script.js', __FILE__), ['yandex-sdk-suggest'], file_exists($js_file) ? filemtime($js_file) : '2.0.0', true);
+        wp_enqueue_script('login_via_yandex_admin', plugins_url('public/js/script.js', __FILE__), ['yandex-sdk-suggest'], file_exists($js_file) ? filemtime($js_file) : '2.0.2', true);
         wp_add_inline_script('login_via_yandex_admin', 'const LVYID_Admin = ' . wp_json_encode([
-                'ajax_url'     => admin_url('admin-ajax.php'),
-                'nonce'        => wp_create_nonce('lvyid_admin_nonce'),
-                'show_welcome' => $show_welcome,
+                'ajax_url'           => admin_url('admin-ajax.php'),
+                'nonce'              => wp_create_nonce('lvyid_admin_nonce'),
+                'show_welcome'       => $show_welcome,
+                'show_donate_modal'  => (bool)$show_donate_modal,
+                'last_donate_shown'  => $last_donate_shown,
+                'current_time'       => $current_time,
+                'donate_url'         => 'https://tbank.ru/cf/9NSMuRm6v1Y',
             ]) . '; const REST_API_data = ' . wp_json_encode([
                 'nonce' => wp_create_nonce('wp_rest'),
                 'url'   => rest_url('login_via_yandex/update-settings'),
@@ -60,6 +70,26 @@ class LVYID_AdminController
         $user_id = get_current_user_id();
         if ($user_id) {
             update_user_meta($user_id, 'lvyid_v200_welcome_seen', true);
+        }
+        wp_send_json_success();
+    }
+
+    public static function ajaxRecordDonateModal()
+    {
+        check_ajax_referer('lvyid_admin_nonce', 'nonce');
+        $user_id = get_current_user_id();
+        if ($user_id) {
+            update_user_meta($user_id, 'lvyid_last_donate_modal_time', time());
+        }
+        wp_send_json_success();
+    }
+
+    public static function ajaxResetDonateTimer()
+    {
+        check_ajax_referer('lvyid_admin_nonce', 'nonce');
+        $user_id = get_current_user_id();
+        if ($user_id) {
+            delete_user_meta($user_id, 'lvyid_last_donate_modal_time');
         }
         wp_send_json_success();
     }

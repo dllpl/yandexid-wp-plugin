@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Login via Yandex ID - Modern Admin UI System (v2.0.1)
+   Login via Yandex ID - Modern Admin UI System (v2.0.2)
    ========================================================================== */
 
 :root {
@@ -140,6 +140,28 @@ html {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.lvyid-btn-donate {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffdd2d;
+    border: 1px solid #e5c500;
+    color: #111111;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 10px rgba(255, 221, 45, 0.4);
+}
+
+.lvyid-btn-donate:hover {
+    background: #f5cf00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 221, 45, 0.55);
 }
 
 .lvyid-btn-whats-new {
@@ -1141,14 +1163,249 @@ html {
     color: #38bdf8;
 }
 
-.lvyid-btn-boosty {
-    background: #fff7ed;
-    color: #ea580c;
-    border: 1px solid #ffedd5;
+.lvyid-btn-tbank {
+    background: #ffdd2d;
+    color: #111111;
+    border: 1px solid #ffd600;
+    font-weight: 700;
 }
 
-.lvyid-btn-boosty:hover {
-    background: #ffedd5;
+.lvyid-btn-tbank:hover {
+    background: #f5cf00;
+    color: #000000;
+    transform: translateY(-1px);
+}
+
+.lvyid-card-donate {
+    background: linear-gradient(135deg, #fffde7 0%, #ffffff 100%);
+    border: 1.5px solid #ffe082;
+    position: relative;
+    overflow: hidden;
+}
+
+.lvyid-donate-header-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lvyid-donate-icon {
+    width: 42px;
+    height: 42px;
+    background: #ffdd2d;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(255, 221, 45, 0.35);
+    flex-shrink: 0;
+}
+
+.lvyid-donate-badge {
+    display: inline-block;
+    background: #fff8e1;
+    color: #b45309;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-bottom: 2px;
+}
+
+.lvyid-donate-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.lvyid-donate-text {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+/* Desktop QR Code Block */
+.lvyid-qr-desktop-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px dashed #fcd34d;
+    border-radius: 16px;
+    padding: 12px 8px 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.lvyid-qr-img-wrap {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.lvyid-qr-img {
+    width: 130px;
+    height: 130px;
+    display: block;
+    border-radius: 4px;
+    image-rendering: pixelated;
+}
+
+.lvyid-qr-caption {
+    font-size: 11px;
+    color: #64748b;
+    text-align: center;
+    margin-top: 8px;
+    line-height: 1.35;
+    max-width: 190px;
+}
+
+.lvyid-tbank-donate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ffdd2d;
+    color: #111111;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: var(--lvyid-radius-sm);
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(255, 221, 45, 0.4);
+}
+
+.lvyid-tbank-donate-btn:hover {
+    background: #f5cf00;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 221, 45, 0.55);
+}
+
+.lvyid-tbank-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #111111;
+    color: #ffdd2d;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 1;
+}
+
+/* Crypto Donation Box (USDT TON) */
+.lvyid-crypto-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-top: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.lvyid-crypto-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.lvyid-crypto-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.lvyid-badge-tron {
+    background: #ffe4e6;
+    color: #e11d48;
+}
+
+.lvyid-badge-eth {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+.lvyid-crypto-hint {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.lvyid-crypto-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+
+.lvyid-crypto-addr {
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 11px;
+    color: #334155;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    user-select: all;
+}
+
+.lvyid-crypto-copy-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #475569;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    line-height: 1.2;
+}
+
+.lvyid-crypto-copy-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    color: #0f172a;
+}
+
+.lvyid-modal-crypto-box {
+    margin-top: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.lvyid-modal-crypto-box .lvyid-crypto-input-wrap {
+    background: #ffffff;
 }
 
 .lvyid-card-review {
@@ -1507,6 +1764,164 @@ html {
     box-shadow: 0 6px 20px rgba(255, 204, 0, 0.5);
 }
 
+/* Donation Modal Styles */
+.lvyid-modal-card-donate {
+    max-width: 640px;
+    background: #ffffff;
+    border: 1px solid #ffe082;
+}
+
+.lvyid-badge-donate {
+    background: #fff8e1;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.lvyid-donate-perks-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.lvyid-perk-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.lvyid-perk-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.lvyid-perk-content h4 {
+    margin: 0 0 3px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.lvyid-perk-content p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.lvyid-donate-cta-box {
+    background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+    border: 1.5px solid #ffe082;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.lvyid-donate-cta-desc {
+    margin: 0 0 16px 0;
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.lvyid-donate-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.lvyid-modal-btn-tbank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ffdd2d;
+    color: #111111;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 221, 45, 0.45);
+    transition: all 0.25s ease;
+}
+
+.lvyid-modal-btn-tbank:hover {
+    background: #f5cf00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 221, 45, 0.6);
+    color: #000000;
+}
+
+.lvyid-tbank-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #111111;
+    color: #ffdd2d;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.lvyid-modal-qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.lvyid-modal-qr-wrap {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    margin-bottom: 4px;
+}
+
+.lvyid-modal-secondary-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 12px;
+    transition: color 0.2s ease;
+}
+
+.lvyid-modal-secondary-btn:hover {
+    color: #475569;
+    text-decoration: underline;
+}
+
 /* --------------------------------------------------------------------------
    Responsive Media Queries
    -------------------------------------------------------------------------- */
@@ -1557,5 +1972,11 @@ html {
         right: 15px;
         left: 15px;
         max-width: calc(100% - 30px);
+    }
+
+    /* Скрываем QR-коды на мобильных устройствах, так как переход осуществляется в 1 тап */
+    .lvyid-qr-desktop-box,
+    .lvyid-modal-qr-section {
+        display: none !important;
     }
 }

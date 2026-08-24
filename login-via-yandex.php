@@ -7,7 +7,7 @@
  * Plugin Name:       Login via Yandex - авторизация через Яндекс для вашего сайта или интернет магазина.
  * Plugin URI:        https://webseed.ru
  * Description:       Плагин для входа через Яндекс для WordPress и Woocommerce. Укажите Client Token и Secret Token в настройках плагина, а также, выберите тип отображения на сайте (в контейнере или всплывающем окне, или и то и другое).
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            Никита Ив (веб-разработчик webseed.ru)
  * Author URI:        https://webseed.ru
  * License:           GPLv2
@@ -24,7 +24,7 @@ if (!defined('WPINC')) {
 }
 
 if (!defined('LVYID_VERSION')) {
-    define('LVYID_VERSION', '2.0.1');
+    define('LVYID_VERSION', '2.0.2');
 }
 
 if (!defined('LVYID_PLUGIN_FILE')) {
@@ -83,6 +83,8 @@ add_action('wp_ajax_lvyid_webhook', 'lvyid_ajax_webhook');
 
 add_action('wp_ajax_lvyid_update_settings', 'lvyid_ajax_update_settings');
 add_action('wp_ajax_lvyid_dismiss_welcome', 'lvyid_ajax_dismiss_welcome');
+add_action('wp_ajax_lvyid_record_donate_modal', 'lvyid_ajax_record_donate_modal');
+add_action('wp_ajax_lvyid_reset_donate_timer', 'lvyid_ajax_reset_donate_timer');
 
 add_filter('clearfy_rest_api_white_list', function ($white_list) {
     $white_list[] = 'login_via_yandex';
@@ -131,6 +133,30 @@ function lvyid_ajax_dismiss_welcome()
 
     require_once plugin_dir_path(__FILE__) . 'admin/LVYID_AdminController.php';
     LVYID_AdminController::ajaxDismissWelcome();
+}
+
+function lvyid_ajax_record_donate_modal()
+{
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error('Доступ запрещен');
+    }
+
+    check_ajax_referer('lvyid_admin_nonce', 'nonce');
+
+    require_once plugin_dir_path(__FILE__) . 'admin/LVYID_AdminController.php';
+    LVYID_AdminController::ajaxRecordDonateModal();
+}
+
+function lvyid_ajax_reset_donate_timer()
+{
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error('Доступ запрещен');
+    }
+
+    check_ajax_referer('lvyid_admin_nonce', 'nonce');
+
+    require_once plugin_dir_path(__FILE__) . 'admin/LVYID_AdminController.php';
+    LVYID_AdminController::ajaxResetDonateTimer();
 }
 
 function lvyid_add_default_auth_button()
@@ -245,7 +271,7 @@ function lvyid_add_copyright()
                 ? 'Копирайт можно убрать в настройках плагина'
                 : 'Copyright can be removed in the plugin settings';
 
-            echo '<a data-info="' . esc_attr($info) . '" title="' . esc_attr($title) . '" class="login_via_yandex" href="' . esc_url("https://webseed.ru/?utm_source=$hostname&utm_medium=login_via_yandex&utm_campaign=login_via_yandex") . '" target="_blank" rel="noopener">' . esc_html($text) . '</a>';
+            echo '<div class="login_via_yandex_wrap"><a data-info="' . esc_attr($info) . '" title="' . esc_attr($title) . '" class="login_via_yandex" href="' . esc_url("https://webseed.ru/?utm_source=$hostname&utm_medium=login_via_yandex&utm_campaign=login_via_yandex") . '" target="_blank" rel="noopener">' . esc_html($text) . '</a></div>';
         }
     }
 }

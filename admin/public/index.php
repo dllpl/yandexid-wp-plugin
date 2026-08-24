@@ -16,7 +16,7 @@ $is_configured = !empty($options['client_id']) && !empty($options['client_secret
                 <div class="lvyid-brand-info">
                     <div class="lvyid-title-row">
                         <h1 class="lvyid-app-title">Вход через Яндекс ID</h1>
-                        <span class="lvyid-version-tag">v2.0.1</span>
+                        <span class="lvyid-version-tag">v2.0.2</span>
                         <?php if ($woo_installed): ?>
                             <span class="lvyid-badge lvyid-badge-woo">WooCommerce Active</span>
                         <?php endif; ?>
@@ -25,6 +25,9 @@ $is_configured = !empty($options['client_id']) && !empty($options['client_secret
                 </div>
             </div>
             <div class="lvyid-header-right">
+                <button type="button" id="lvyid-open-donate-btn" class="lvyid-btn-donate">
+                    <span class="lvyid-btn-icon">☕</span> Поддержать проект
+                </button>
                 <button type="button" id="lvyid-open-whats-new-btn" class="lvyid-btn-whats-new">
                     <span class="lvyid-btn-icon">✨</span> Что нового в 2.0.0
                 </button>
@@ -476,6 +479,73 @@ $is_configured = !empty($options['client_id']) && !empty($options['client_secret
                 </div>
             </div>
 
+            <!-- Donate Card (T-Bank) -->
+            <div class="lvyid-card lvyid-card-donate">
+                <div class="lvyid-card-header" style="border-bottom: none; padding-bottom: 0;">
+                    <div class="lvyid-donate-header-box">
+                        <div class="lvyid-donate-icon">☕</div>
+                        <div>
+                            <span class="lvyid-donate-badge">Сбор на развитие</span>
+                            <h3 class="lvyid-donate-title">Поддержать автора</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="lvyid-card-body" style="padding-top: 10px;">
+                    <p class="lvyid-donate-text">
+                        Плагин <b>Login via Yandex</b> полностью бесплатный. Если он полезен для вашего сайта, поддержите разработку и выход регулярных обновлений!
+                    </p>
+
+                    <!-- Crypto Wallet Box (USDT TON) -->
+                    <div class="lvyid-crypto-box">
+                        <div class="lvyid-crypto-label">
+                            <span class="lvyid-crypto-badge">💎 USDT (TON)</span>
+                            <span class="lvyid-crypto-hint">Крипто-кошелек</span>
+                        </div>
+                        <div class="lvyid-crypto-input-wrap">
+                            <code class="lvyid-crypto-addr" title="UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8">UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8</code>
+                            <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8'); this.innerText='✓'; setTimeout(()=>this.innerText='📋', 1500);" title="Копировать адрес кошелька">📋</button>
+                        </div>
+                    </div>
+
+                    <!-- Crypto Wallet Box (USDT TRON) -->
+                    <div class="lvyid-crypto-box" style="margin-top: 8px;">
+                        <div class="lvyid-crypto-label">
+                            <span class="lvyid-crypto-badge lvyid-badge-tron">🔴 USDT (TRON)</span>
+                            <span class="lvyid-crypto-hint">TRC-20</span>
+                        </div>
+                        <div class="lvyid-crypto-input-wrap">
+                            <code class="lvyid-crypto-addr" title="TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp">TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp</code>
+                            <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp'); this.innerText='✓'; setTimeout(()=>this.innerText='📋', 1500);" title="Копировать адрес кошелька">📋</button>
+                        </div>
+                    </div>
+
+                    <!-- Crypto Wallet Box (USDT ETH) -->
+                    <div class="lvyid-crypto-box" style="margin-top: 8px; margin-bottom: 14px;">
+                        <div class="lvyid-crypto-label">
+                            <span class="lvyid-crypto-badge lvyid-badge-eth">🔷 USDT (Ethereum)</span>
+                            <span class="lvyid-crypto-hint">ERC-20</span>
+                        </div>
+                        <div class="lvyid-crypto-input-wrap">
+                            <code class="lvyid-crypto-addr" title="0x4e567c33b30287656151188DBFcA6742eb54b3ab">0x4e567c33b30287656151188DBFcA6742eb54b3ab</code>
+                            <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('0x4e567c33b30287656151188DBFcA6742eb54b3ab'); this.innerText='✓'; setTimeout(()=>this.innerText='📋', 1500);" title="Копировать адрес кошелька">📋</button>
+                        </div>
+                    </div>
+
+                    <!-- Desktop QR Code -->
+                    <div class="lvyid-qr-desktop-box">
+                        <div class="lvyid-qr-img-wrap">
+                            <img src="<?php echo esc_url(plugins_url('img/tbank-qr.png', __FILE__)); ?>" alt="QR код для доната через Т-Банк" width="140" height="140" class="lvyid-qr-img">
+                        </div>
+                        <span class="lvyid-qr-caption">Отсканируйте камерой телефона для перевода в Т-Банке / СБП</span>
+                    </div>
+
+                    <a href="https://tbank.ru/cf/9NSMuRm6v1Y" target="_blank" rel="noopener" class="lvyid-tbank-donate-btn">
+                        <span class="lvyid-tbank-logo">Т</span>
+                        <span>Донат через Т-Банк →</span>
+                    </a>
+                </div>
+            </div>
+
             <!-- Webseed Services Card -->
             <div class="lvyid-card">
                 <div class="lvyid-card-header" style="border-bottom: none; padding-bottom: 0;">
@@ -500,11 +570,11 @@ $is_configured = !empty($options['client_id']) && !empty($options['client_secret
                         <div class="lvyid-agency-item">⚡ Ускорение сайтов (PageSpeed 95+)</div>
                     </div>
                     <div class="lvyid-author-links" style="margin-top: 16px;">
+                        <a href="https://tbank.ru/cf/9NSMuRm6v1Y" target="_blank" rel="noopener" class="lvyid-author-btn lvyid-btn-tbank">
+                            💛 Поддержать через Т-Банк
+                        </a>
                         <a href="https://webseed.ru?utm_source=wp-admin&utm_medium=plugin&utm_campaign=wp-login-via-yandex" target="_blank" rel="noopener" class="lvyid-author-btn lvyid-btn-site">
                             🌐 Заказать проект на Webseed.ru
-                        </a>
-                        <a href="https://boosty.to/webseed/donate" target="_blank" rel="noopener" class="lvyid-author-btn lvyid-btn-boosty">
-                            ☕ Поддержать проект (Boosty)
                         </a>
                     </div>
                 </div>
@@ -596,6 +666,105 @@ $is_configured = !empty($options['client_id']) && !empty($options['client_secret
 
         <div class="lvyid-modal-footer">
             <button type="button" class="lvyid-modal-primary-btn" id="lvyid-modal-ok-btn">Отлично, перейти к настройкам →</button>
+        </div>
+    </div>
+</div>
+
+<!-- Daily Donation Modal -->
+<div id="lvyid-donate-modal" class="lvyid-modal-overlay" style="display: none;">
+    <div class="lvyid-modal-card lvyid-modal-card-donate">
+        <button type="button" class="lvyid-modal-close" id="lvyid-donate-modal-close-btn" title="Закрыть">×</button>
+        
+        <div class="lvyid-modal-header" style="margin-bottom: 22px;">
+            <div class="lvyid-modal-badge lvyid-badge-donate">💛 Поддержка развития плагина</div>
+            <h2 class="lvyid-modal-title">Нравится «Login via Yandex»?</h2>
+            <p class="lvyid-modal-subtitle">Плагин развивается и распространяется абсолютно бесплатно. Мы регулярно выпускаем обновления и поддерживаем совместимость со стандартами Яндекс ID и WooCommerce.</p>
+        </div>
+
+        <div class="lvyid-modal-body">
+            <div class="lvyid-donate-perks-grid">
+                <div class="lvyid-perk-card">
+                    <div class="lvyid-perk-icon" style="background: #fff8e1; color: #f57f17;">⚡</div>
+                    <div class="lvyid-perk-content">
+                        <h4>Быстрые обновления</h4>
+                        <p>Оперативная адаптация под новые версии WordPress, WooCommerce и API Яндекс ID.</p>
+                    </div>
+                </div>
+                <div class="lvyid-perk-card">
+                    <div class="lvyid-perk-icon" style="background: #e8f5e9; color: #2e7d32;">🛡️</div>
+                    <div class="lvyid-perk-content">
+                        <h4>Стабильность и защита</h4>
+                        <p>Поддержка современных методов AJAX, защита от сбоев и конфликтов с плагинами.</p>
+                    </div>
+                </div>
+                <div class="lvyid-perk-card">
+                    <div class="lvyid-perk-icon" style="background: #ede7f6; color: #673ab7;">🚀</div>
+                    <div class="lvyid-perk-content">
+                        <h4>Новые полезные фичи</h4>
+                        <p>Конструктор кнопок, универсальные шорткоды и автозаполнение полей чекаута.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lvyid-donate-cta-box">
+                <!-- Crypto in Modal (USDT TON) -->
+                <div class="lvyid-crypto-box lvyid-modal-crypto-box" style="margin-top: 0; margin-bottom: 8px;">
+                    <div class="lvyid-crypto-label">
+                        <span class="lvyid-crypto-badge">💎 USDT (Сеть TON)</span>
+                        <span class="lvyid-crypto-hint">Крипто-кошелек</span>
+                    </div>
+                    <div class="lvyid-crypto-input-wrap">
+                        <code class="lvyid-crypto-addr" title="UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8">UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8</code>
+                        <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8'); this.innerText='Скопировано!'; setTimeout(()=>this.innerText='Копировать', 1500);" title="Копировать адрес кошелька">Копировать</button>
+                    </div>
+                </div>
+
+                <!-- Crypto in Modal (USDT TRON) -->
+                <div class="lvyid-crypto-box lvyid-modal-crypto-box" style="margin-top: 0; margin-bottom: 8px;">
+                    <div class="lvyid-crypto-label">
+                        <span class="lvyid-crypto-badge lvyid-badge-tron">🔴 USDT (Сеть TRON / TRC-20)</span>
+                        <span class="lvyid-crypto-hint">Крипто-кошелек</span>
+                    </div>
+                    <div class="lvyid-crypto-input-wrap">
+                        <code class="lvyid-crypto-addr" title="TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp">TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp</code>
+                        <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp'); this.innerText='Скопировано!'; setTimeout(()=>this.innerText='Копировать', 1500);" title="Копировать адрес кошелька">Копировать</button>
+                    </div>
+                </div>
+
+                <!-- Crypto in Modal (USDT ETH) -->
+                <div class="lvyid-crypto-box lvyid-modal-crypto-box" style="margin-top: 0; margin-bottom: 16px;">
+                    <div class="lvyid-crypto-label">
+                        <span class="lvyid-crypto-badge lvyid-badge-eth">🔷 USDT (Сеть Ethereum / ERC-20)</span>
+                        <span class="lvyid-crypto-hint">Крипто-кошелек</span>
+                    </div>
+                    <div class="lvyid-crypto-input-wrap">
+                        <code class="lvyid-crypto-addr" title="0x4e567c33b30287656151188DBFcA6742eb54b3ab">0x4e567c33b30287656151188DBFcA6742eb54b3ab</code>
+                        <button type="button" class="lvyid-crypto-copy-btn" onclick="navigator.clipboard.writeText('0x4e567c33b30287656151188DBFcA6742eb54b3ab'); this.innerText='Скопировано!'; setTimeout(()=>this.innerText='Копировать', 1500);" title="Копировать адрес кошелька">Копировать</button>
+                    </div>
+                </div>
+
+                <!-- Desktop QR in Modal -->
+                <div class="lvyid-modal-qr-section">
+                    <div class="lvyid-qr-img-wrap lvyid-modal-qr-wrap">
+                        <img src="<?php echo esc_url(plugins_url('img/tbank-qr.png', __FILE__)); ?>" alt="QR код для доната через Т-Банк" width="140" height="140" class="lvyid-qr-img">
+                    </div>
+                    <span class="lvyid-qr-caption">Наведите камеру смартфона для перевода через Т-Банк / СБП</span>
+                </div>
+
+                <p class="lvyid-donate-cta-desc">
+                    Любой донат помогает нам уделять проекту больше времени и развивать плагин дальше!
+                </p>
+                <div class="lvyid-donate-modal-actions">
+                    <a href="https://tbank.ru/cf/9NSMuRm6v1Y" target="_blank" rel="noopener" class="lvyid-modal-btn-tbank" id="lvyid-donate-tbank-main-btn">
+                        <span class="lvyid-tbank-circle">Т</span>
+                        <span>Перейти к донату в Т-Банк →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lvyid-modal-footer" style="padding-top: 18px; display: flex; justify-content: center; gap: 14px;">
+            <button type="button" class="lvyid-modal-secondary-btn" id="lvyid-donate-remind-later-btn">Напомнить позже</button>
         </div>
     </div>
 </div>

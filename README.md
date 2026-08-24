@@ -160,7 +160,10 @@
 Разработка и развитие плагина: IT-агентство **[Webseed.ru](https://webseed.ru)**.
 
 - 🌐 **Заказать проект или доработку:** [Webseed.ru](https://webseed.ru?utm_source=github&utm_medium=readme&utm_campaign=login-via-yandex)
-- ☕ **Поддержать проект:** [Boosty.to/webseed](https://boosty.to/webseed/donate)
+- 💎 **USDT (TON):** `UQClFRT0oY1LDBXIZsgK0vY0EOGKtEPsbsyzX-CzF9OeKHH8`
+- 🔴 **USDT (TRON / TRC-20):** `TJDMwm1QwgfvhLAHME5DZHxq9UW4vXohKp`
+- 🔷 **USDT (Ethereum / ERC-20):** `0x4e567c33b30287656151188DBFcA6742eb54b3ab`
+- ☕ **Поддержать проект (Т-Банк):** [Т-Банк сбор](https://tbank.ru/cf/9NSMuRm6v1Y)
 - 💬 **Вопросы и предложения:** [Telegram разработчика](https://t.me/dllpl)
 
 ---
