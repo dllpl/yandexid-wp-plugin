@@ -1,6 +1,6 @@
 === Login via Yandex – вход через Яндекс ID ===
 Contributors: dllpl
-Tags: login, yandex, яндекс, вход через яндекс, быстрый вход, авторизация, auth, authentication, woocommerce
+Tags: login, yandex, auth, authentication, яндекс
 Donate link: https://tbank.ru/cf/9NSMuRm6v1Y
 Requires at least: 5.0
 Tested up to: 7.1.0
