@@ -7,7 +7,7 @@
  * Plugin Name:       Login via Yandex - авторизация через Яндекс для вашего сайта или интернет магазина.
  * Plugin URI:        https://webseed.ru
  * Description:       Плагин для входа через Яндекс для WordPress и Woocommerce. Укажите Client Token и Secret Token в настройках плагина, а также, выберите тип отображения на сайте (в контейнере или всплывающем окне, или и то и другое).
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            Никита Ив (веб-разработчик webseed.ru)
  * Author URI:        https://webseed.ru
  * License:           GPLv2
@@ -24,7 +24,7 @@ if (!defined('WPINC')) {
 }
 
 if (!defined('LVYID_VERSION')) {
-    define('LVYID_VERSION', '2.0.2');
+    define('LVYID_VERSION', '2.0.3');
 }
 
 if (!defined('LVYID_PLUGIN_FILE')) {
@@ -32,10 +32,9 @@ if (!defined('LVYID_PLUGIN_FILE')) {
 }
 
 add_action('rest_api_init', 'lvyid_register_routes');
-add_action('wp_head', 'lvyid_add_script_to_head');
+add_action('wp_enqueue_scripts', 'lvyid_register_scripts');
+add_action('login_enqueue_scripts', 'lvyid_register_scripts');
 add_action('wp_footer', 'lvyid_init_script_and_style');
-
-add_action('login_head', 'lvyid_add_script_to_head');
 add_action('login_footer', 'lvyid_init_script_and_style');
 
 add_action('admin_menu', 'lvyid_admin_menu_init');
@@ -228,11 +227,16 @@ function lvyid_upgrade_function($upgrader_object, $options)
     $LVYID_Upgrade->make($upgrader_object, $options);
 }
 
-function lvyid_add_script_to_head()
+function lvyid_register_scripts()
 {
     if (!is_user_logged_in()) {
-        wp_enqueue_script('sdk-suggest-with-polyfills-latest', 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js', [], '2.0.0', false);
+        wp_register_script('sdk-suggest-with-polyfills-latest', 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js', [], '2.0.0', true);
     }
+}
+
+function lvyid_add_script_to_head()
+{
+    lvyid_register_scripts();
 }
 
 function lvyid_init_script_and_style()

@@ -43,7 +43,7 @@ class LVYID_AdminController
         $show_donate_modal = $is_test || (($current_time - $last_donate_shown) >= 86400);
 
         wp_enqueue_script('yandex-sdk-suggest', 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js', [], null, true);
-        wp_enqueue_script('login_via_yandex_admin', plugins_url('public/js/script.js', __FILE__), ['yandex-sdk-suggest'], file_exists($js_file) ? filemtime($js_file) : '2.0.2', true);
+        wp_enqueue_script('login_via_yandex_admin', plugins_url('public/js/script.js', __FILE__), ['yandex-sdk-suggest'], file_exists($js_file) ? filemtime($js_file) : '2.0.3', true);
         wp_add_inline_script('login_via_yandex_admin', 'const LVYID_Admin = ' . wp_json_encode([
                 'ajax_url'           => admin_url('admin-ajax.php'),
                 'nonce'              => wp_create_nonce('lvyid_admin_nonce'),
